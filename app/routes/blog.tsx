@@ -1,15 +1,7 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { blogPost } from "~/models/blog.server";
 
-interface blogPost {
-  id: string;
-  slug: string;
-  title: string;
-  date: Date;
-  content: string;
-  category: string;
-  image: string;
-}
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   const posts: blogPost[] = [
@@ -42,7 +34,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   return json({ posts });
 };
 
-function Post(blogPost: blogPost) {
+function Post({ blogPost }: { blogPost: any }) {
   const { title, date, content, category } = blogPost;
   const dateObj = new Date(date)
   const displayDate = new Intl.DateTimeFormat('en-US', { month: "long", day: "2-digit", year: "numeric" }).format(dateObj);
@@ -77,7 +69,7 @@ function Post(blogPost: blogPost) {
 
 }
 export default function BlogRoute() {
-  const { posts } = useLoaderData()
+  const { posts } = useLoaderData<typeof loader>()
   return (
     <main>
       <h1 className="text-5xl text-dark bg-cream py-8 px-4">Blog</h1>
@@ -86,8 +78,8 @@ export default function BlogRoute() {
           Suspendisse potenti. Sed egestas eros eu libero posuere ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
         </p>
         <div className="grid">
-          {posts.map((post: blogPost) => (
-            <Post key={post.id} {...post} />
+          {posts.map((post) => (
+            <Post key={post.id} blogPost={post} />
           ))}
         </div>
       </section>
