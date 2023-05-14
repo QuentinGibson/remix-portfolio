@@ -19,7 +19,7 @@ export default function IndexRoute() {
           <h2 className='text-6xl leading-[54px] text-dark'>Quentin <br /> Gibson</h2>
         </div>
         <div className="flex flex-col">
-          <div className='ml-16 border-l-2 border-dark pl-4 font-serif'>
+          <div className='ml-16 border-l border-dark pl-4 font-serif'>
             <p className='leading-6 text-lightDark mr-10 my-4 text-base'>Im a fullstack developer based in College Park, Ga and I enjoy playing with React. I love video games, basketball, and music.</p>
             <div className="flex gap-3">
               <Link to="">
