@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
   }
   return (
     <>
-      <header className=" flex flex-col justify-between items-center py-4 bg-cream">
+      <header className=" flex flex-col justify-between items-center py-4 bg-cream px-4">
         <div className="flex gap-4 justify-between w-full">
           <div>
             <Link to="/">
@@ -34,10 +34,20 @@ export default function Layout({ children }: LayoutProps) {
       </header>
       {children}
       <footer>
-        <div className="flex gap-2">
-          <GrGithub />
-          <GrLinkedin />
-          <GrYoutube />
+        <div className="flex flex-col gap-4 bg-cream py-8 items-center font-serif">
+          <div className="flex gap-4 text-4xl ">
+            <Link to={""}>
+              <GrGithub />
+            </Link>
+            <Link to={""}>
+              <GrLinkedin />
+            </Link>
+            <Link to={""}>
+              <GrYoutube />
+            </Link>
+          </div>
+          <p className="font-thin">© 2023 Quentin Gibson. All Rights Resevered</p>
+          <p className="font-thin">Developed by Quentin Gibson</p>
         </div>
       </footer>
     </>
