@@ -16,11 +16,11 @@ export default function Layout({ children }: LayoutProps) {
   }
   return (
     <>
-      <header className=" flex flex-col justify-between items-center h-full py-4">
+      <header className=" flex flex-col justify-between items-center py-4 bg-cream">
         <div className="flex gap-4 justify-between w-full">
           <div>
             <Link to="/">
-              <h1 className="font-bold text-3xl">Quentin</h1>
+              <h1 className="text-2xl">Quentin</h1>
             </Link>
           </div>
           <div className='flex gap-2'>
