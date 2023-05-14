@@ -1,6 +1,8 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
+import clsx from "clsx";
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { Theme, ThemeProvider, useTheme } from "./utils/theme-provider";
 import {
   Links,
   LiveReload,
@@ -24,9 +26,10 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
 
-export default function App() {
+function Body() {
+  const [theme] = useTheme();
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={clsx(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -41,4 +44,12 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <Body />
+    </ThemeProvider>
+  )
 }

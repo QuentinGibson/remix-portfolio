@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Sorts Mill Goudy", "sans-serif"],
+        serif: ["Rubik", "serif"]
       },
     }
   },
