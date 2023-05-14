@@ -2,7 +2,6 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import clsx from "clsx";
 import type { LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Theme, ThemeProvider, useTheme } from "./utils/theme-provider";
 import {
   Links,
   LiveReload,
@@ -15,6 +14,8 @@ import {
 import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
 import themeStylesheet from "~/theme.css";
+import { ThemeProvider, useTheme } from "./utils/theme-provider";
+import Layout from "./components/Layout";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -37,10 +38,13 @@ function Body() {
         <Links />
       </head>
       <body className="h-full bg-[#f2f1f7]">
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+
       </body>
     </html>
   );
