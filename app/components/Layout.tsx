@@ -18,7 +18,7 @@ export default function Layout({ children }: LayoutProps) {
   }
   return (
     <>
-      <header className=" flex flex-col justify-between items-center py-4 bg-[#ebe0c2] border-b border-[#8c805e] px-4">
+      <header className=" flex flex-col justify-between items-center py-4 bg-cream border-b border-[#8c805e] px-4">
         <div className="flex gap-4 justify-between w-full item-center">
           <div>
             <Link to="/">
