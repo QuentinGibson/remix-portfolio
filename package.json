@@ -27,15 +27,19 @@
   ],
   "dependencies": {
     "@prisma/client": "^4.12.0",
+    "@react-three/drei": "^9.68.3",
+    "@react-three/fiber": "^8.13.0",
     "@remix-run/css-bundle": "*",
     "@remix-run/node": "*",
     "@remix-run/react": "*",
     "@remix-run/serve": "*",
+    "@types/three": "^0.152.0",
     "bcryptjs": "^2.4.3",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "three": "^0.152.2",
     "tiny-invariant": "^1.3.1"
   },
   "devDependencies": {
