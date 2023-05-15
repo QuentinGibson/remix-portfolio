@@ -59,7 +59,7 @@ export default function Layout({ children }: LayoutProps) {
         }
       </header>
       {children}
-      <footer>
+      <footer className="border-t border-[#8c805e]">
         <div className="flex flex-col gap-4 bg-cream py-8 items-center font-serif text-center">
           <div className="flex gap-4 text-4xl ">
             <Link to={""}>
