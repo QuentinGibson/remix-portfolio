@@ -16,6 +16,9 @@ export default function Layout({ children }: LayoutProps) {
   const changeTheme = () => {
     setTheme(isDark ? Theme.LIGHT : Theme.DARK);
   }
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+  }
   return (
     <>
       <header className=" flex flex-col justify-between items-center py-4 bg-cream border-b border-[#8c805e] px-4">
@@ -51,9 +54,9 @@ export default function Layout({ children }: LayoutProps) {
           null :
           isMenuOpen && (
             <nav className="flex gap-4 my-2">
-              <Link to="/blog">Blog</Link>
-              <Link to="/projects">Projects</Link>
-              <Link to="/contact">Contact</Link>
+              <Link to="/blog" onClick={closeMenu}>Blog</Link>
+              <Link to="/projects" onClick={closeMenu}>Projects</Link>
+              <Link to="/contact" onClick={closeMenu}>Contact</Link>
             </nav>
           )
         }
