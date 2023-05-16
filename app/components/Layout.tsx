@@ -2,12 +2,13 @@ import { Link } from "@remix-run/react";
 import { ReactNode, useState } from "react";
 import { GrGithub, GrLinkedin, GrYoutube } from 'react-icons/gr'
 import { HiMenuAlt4, HiOutlineSun, HiOutlineMoon, HiX } from 'react-icons/hi'
-import { Theme, ThemeProvider, useTheme } from "~/utils/theme-provider";
+import { Theme, useTheme } from "~/utils/theme-provider";
 import { useMediaQuery } from "usehooks-ts";
 
 interface LayoutProps {
   children: ReactNode;
 }
+
 export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useTheme();
   const isDark = theme === Theme.DARK;

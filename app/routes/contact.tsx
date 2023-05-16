@@ -1,8 +1,10 @@
 import { DataFunctionArgs } from "@remix-run/node";
-import { Form, Link } from "@remix-run/react";
+import { Link, useFetcher } from "@remix-run/react";
 import { HiAtSymbol } from 'react-icons/hi'
+import invariant from "tiny-invariant";
 
 export default function ContactRoute() {
+  const contactFetcher = useFetcher();
   return (
     <main>
       <h1 className="text-5xl text-dark bg-cream py-8 px-4">Contact</h1>
@@ -15,7 +17,7 @@ export default function ContactRoute() {
         </div>
       </div>
       <section className="bg-cream">
-        <Form method="POST" className="font-serif">
+        <contactFetcher.Form method="POST" className="font-serif">
           <div className="flex flex-col px-4 gap-6">
             <div className="flex flex-col">
               <label htmlFor="name" className="font-bold">Name</label>
@@ -33,7 +35,7 @@ export default function ContactRoute() {
               <button type="submit" className="px-6 py-2 border border-[#ff8059] rounded mb-8 hover:bg-[#ff8059]">Submit</button>
             </div>
           </div>
-        </Form>
+        </contactFetcher.Form>
       </section>
     </main>
   );
@@ -42,4 +44,17 @@ export default function ContactRoute() {
 export const action = async ({ request, params }: DataFunctionArgs) => {
   const formData = await request.formData();
   const { message, name, email } = Object.fromEntries(formData.entries());
+  invariant(typeof message === "string", "Message is invalid");
+  invariant(typeof name === "string", "Name is invalid");
+  invariant(typeof email === "string", "Email is invalid");
+
+  invariant(message, "Message is required");
+  invariant(name, "Name is required");
+  invariant(email, "Email is required");
+  invariant(email.includes("@"), "Email is invalid");
+  invariant(message.length < 500, "Message is too long");
+  invariant(name.length < 100, "Name is too long");
+  invariant(email.length < 100, "Email is too long");
+
+  return "Suceess!"
 };
