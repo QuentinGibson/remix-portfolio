@@ -1,5 +1,5 @@
 import { DataFunctionArgs, json, redirect } from "@remix-run/node";
-import { Link, useActionData, useFetcher } from "@remix-run/react";
+import { Link,  useFetcher } from "@remix-run/react";
 import { useEffect } from "react";
 import { HiAtSymbol } from 'react-icons/hi'
 import invariant from "tiny-invariant";
@@ -7,17 +7,6 @@ import { getSession, sessionStorage } from "~/session.server";
 
 export default function ContactRoute() {
   const contactFetcher = useFetcher();
-  useEffect(() => {
-    if (contactFetcher.state === "loading" || contactFetcher.state === "submitting") {
-      if (contactFetcher.data) {
-        console.log(contactFetcher.data)
-        console.log(contactFetcher.type)
-        console.dir(contactFetcher)
-      }
-    }
-
-
-  })
   return (
     <main>
       <h1 className="text-5xl text-dark bg-cream py-8 px-4">Contact</h1>
@@ -84,15 +73,42 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
     return json({ error: { message: "Message is too long. Please enter a message less than 500 characters" } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
   }
 
-
+  try {
   invariant(typeof name === "string", "Name is invalid");
-  invariant(typeof email === "string", "Email is invalid");
+  } catch (error: any) {
+    return json({ error: { name: "Name is invalid. Please enter a valid name." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
 
-  invariant(name, "Name is required");
-  invariant(email, "Email is required");
+  try {
+  invariant(typeof email === "string", "Email is invalid");
   invariant(email.includes("@"), "Email is invalid");
-  invariant(name.length < 100, "Name is too long");
+  } catch (error: any) {
+    return json({ error: { email: "Email is invalid. Please enter a valid name." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
+
+  try {
+  invariant(name, "Name is required");
+  } catch (error: any) {
+    return json({ error: { name: "Name is required." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
+
+  try {
+  invariant(email, "Email is required");
+  } catch (error: any) {
+    return json({ error: { email: "Email is required." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
+
+  try {
+    invariant(name.length < 100, "Name is too long");
+  } catch (error: any) {
+    return json({ error: { name: "Name is too long. Please enter a name under 100 characters." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
+
+  try {
   invariant(email.length < 100, "Email is too long");
+  } catch (error: any) {
+    return json({ error: { email: "Email is too long." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  }
 
   session.flash("globalMessage", "Message sent!");
 
