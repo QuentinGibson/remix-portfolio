@@ -12,7 +12,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useTheme();
   const isDark = theme === Theme.DARK;
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = useMediaQuery('(min-width: 768px)') || false
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const changeTheme = () => {
     setTheme(isDark ? Theme.LIGHT : Theme.DARK);
