@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { GrGithub, GrLinkedin, GrYoutube } from 'react-icons/gr'
 import { HiMenuAlt4, HiOutlineSun, HiOutlineMoon, HiX } from 'react-icons/hi'
 import { Theme, useTheme } from "~/utils/theme-provider";
@@ -12,7 +12,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useTheme();
   const isDark = theme === Theme.DARK;
-  const isDesktop = useMediaQuery('(min-width: 768px)') || false
+  const isDesktop = useMediaQuery('(min-width: 768px)')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const changeTheme = () => {
     setTheme(isDark ? Theme.LIGHT : Theme.DARK);
