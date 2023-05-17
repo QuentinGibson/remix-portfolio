@@ -8,9 +8,10 @@ import { getSession, sessionStorage } from "~/session.server";
 export default function ContactRoute() {
   const contactFetcher = useFetcher();
   return (
-    <main>
-      <h1 className="text-5xl text-dark bg-cream py-8 px-4">Contact</h1>
-      <div className="flex flex-col bg-cream font-serif py-8">
+    <main className="bg-cream">
+      <div className="max-w-screen-md mx-auto">
+      <h1 className="text-5xl text-dark  py-8 px-4">Contact</h1>
+      <div className="flex flex-col  font-serif py-8">
         <div className="flex flex-col px-4">
           <Link to="mailto:quentingibson94@gmail.com">
             <HiAtSymbol className="text-4xl text-[#ff8059]" />
@@ -18,7 +19,7 @@ export default function ContactRoute() {
           </Link>
         </div>
       </div>
-      <section className="bg-cream">
+      <section className="">
         <contactFetcher.Form method="POST" className="font-serif">
           <div className="flex flex-col px-4 gap-6">
             <div className="flex flex-col">
@@ -45,6 +46,8 @@ export default function ContactRoute() {
           </div>
         </contactFetcher.Form>
       </section>
+    
+      </div>
     </main>
   );
 };

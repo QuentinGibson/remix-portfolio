@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { ReactNode, useEffect, useState } from "react";
-import { GrGithub, GrLinkedin, GrYoutube } from 'react-icons/gr'
+import { GrGithub, GrLinkedin, GrTwitter, GrYoutube } from 'react-icons/gr'
 import { HiMenuAlt4, HiOutlineSun, HiOutlineMoon, HiX } from 'react-icons/hi'
 import { Theme, useTheme } from "~/utils/theme-provider";
 import { useMediaQuery } from "usehooks-ts";
@@ -25,16 +25,16 @@ export default function Layout({ children }: LayoutProps) {
       <header className=" flex flex-col justify-between items-center py-4 bg-cream border-b border-[#8c805e] px-4">
         <div className="flex gap-4 justify-between w-full item-center">
           <div>
-            <Link to="/">
+            <Link prefetch="intent" to="/">
               <h1 className="text-2xl">Quentin</h1>
             </Link>
           </div>
           <div className='flex gap-2 md:gap-8'>
             {isDesktop ?
               <nav className="flex gap-4 items-center text-xl">
-                <Link to="/blog">Blog</Link>
-                <Link to="/projects">Projects</Link>
-                <Link to="/contact">Contact</Link>
+                <Link prefetch="intent" to="/blog">Blog</Link>
+                <Link prefetch="intent" to="/projects">Projects</Link>
+                <Link prefetch="intent" to="/contact">Contact</Link>
               </nav> :
               <button>
                 {isMenuOpen ?
@@ -55,9 +55,9 @@ export default function Layout({ children }: LayoutProps) {
           null :
           isMenuOpen && (
             <nav className="flex gap-4 my-2">
-              <Link to="/blog" onClick={closeMenu}>Blog</Link>
-              <Link to="/projects" onClick={closeMenu}>Projects</Link>
-              <Link to="/contact" onClick={closeMenu}>Contact</Link>
+              <Link prefetch="intent" to="/blog" onClick={closeMenu}>Blog</Link>
+              <Link prefetch="intent" to="/projects" onClick={closeMenu}>Projects</Link>
+              <Link prefetch="intent" to="/contact" onClick={closeMenu}>Contact</Link>
             </nav>
           )
         }
@@ -66,13 +66,13 @@ export default function Layout({ children }: LayoutProps) {
       <footer className="border-t border-[#8c805e]">
         <div className="flex flex-col gap-4 bg-cream py-8 items-center font-serif text-center">
           <div className="flex gap-4 text-4xl ">
-            <Link to={""}>
+            <Link to={"https://github.com/QuentinGibson"}>
               <GrGithub />
             </Link>
-            <Link to={""}>
-              <GrLinkedin />
+            <Link to={"https://twitter.com/quent_made_it"}>
+              <GrTwitter />
             </Link>
-            <Link to={""}>
+            <Link to={"https://www.youtube.com/channel/UCsX8Ahu9O9dmFyoV_fgoeaw"}>
               <GrYoutube />
             </Link>
           </div>

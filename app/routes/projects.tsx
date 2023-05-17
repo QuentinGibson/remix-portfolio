@@ -15,15 +15,17 @@ interface Project {
 function Work({ project }: { project: Project }) {
   return (
     <article className="px-4">
-      <Link to={`/projects/${project.slug}`}>
-        <div className="flex flex-col gap-6 text-dark justify-center items-center">
+      <Link prefetch="intent" to={`/projects/${project.slug}`}>
+        <div className="flex flex-col gap-6 text-dark justify-center items-center md:grid md:grid-cols-2">
           <div className="flex">
             <img className="w-full" src={project.image} alt="" />
           </div>
+          <div className="flex flex-col">
           <h2 className="text-4xl">{project.title}</h2>
-          <div className="font-serif font-thin text-lightDark flex flex-col items-center">
+          <div className="font-serif font-thin text-lightDark flex flex-col mt-4">
             <p>{project.type}</p>
             <p>{project.category}</p>
+          </div>
           </div>
         </div>
       </Link>

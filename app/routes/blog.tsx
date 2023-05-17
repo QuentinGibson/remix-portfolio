@@ -44,8 +44,8 @@ function Post({ blogPost }: { blogPost: any }) {
 
   return (
     <article className={'flex flex-col relative overflow-hidden'}>
-      <div className="absolute before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-full before:h-full before:bg-[#ebe7e0] before:opacity-[.85] h-full">
-        <img src={blogPost.image} className="h-full w-full object-fill" alt="" />
+      <div className="absolute before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-full before:h-full before:bg-[#ebe7e0] before:opacity-[.85] h-full w-full">
+        <img src={blogPost.image} className="h-full w-full object-cover" alt="" />
       </div>
       <div className="px-4 flex flex-col gap-6 py-8">
         <div className="flex gap-4 z-10 font-serif items-center">
@@ -53,7 +53,7 @@ function Post({ blogPost }: { blogPost: any }) {
           <p className="text-lightDark font-thin">{displayDate}</p>
         </div>
         <div className="flex z-10">
-          <Link to={`/blog/${blogPost.slug}`}>
+          <Link prefetch="intent" to={`/blog/${blogPost.slug}`}>
             <h1 className="text-3xl font-bold text-dark underline-offset-2 hover:underline">{title}</h1>
           </Link>
         </div>
@@ -61,7 +61,7 @@ function Post({ blogPost }: { blogPost: any }) {
           <p>{trimContent(content)}</p>
         </div>
         <div className="flex z-10">
-          <Link className="text-[#ff8059] font-bold font-serif underline-offset-2 hover:underline" to={`/blog/${blogPost.slug}`}>Read More</Link>
+          <Link prefetch="intent" className="text-[#ff8059] font-bold font-serif underline-offset-2 hover:underline" to={`/blog/${blogPost.slug}`}>Read More</Link>
         </div>
       </div>
     </article>

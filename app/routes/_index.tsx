@@ -9,38 +9,38 @@ export default function IndexRoute() {
     <main className="relative h-full">
       <section className='py-8 bg-cream'>
         <div className='relative flex justify-center'>
-          <img src="/img/white-man.png" className='object-fill w-full z-20' alt="This is some random ass nigga" />
+          <img src="/img/nobg-me.png" className='object-fill w-full z-20' alt="This is some random ass nigga" />
           <img className='absolute bottom-0 z-10 w-full' src="/img/art.svg" alt="" />
         </div>
       </section>
       <section className="flex flex-col gap-2 w-full bg-cream py-8">
         <div className='px-4'>
-          <h1 className="font-thin font-serif uppercase text-lightDark">Fullstack Web Developer</h1>
-          <h2 className='text-6xl leading-[54px] text-dark'>Quentin <br /> Gibson</h2>
+          <h1 className="font-thin font-serif uppercase text-lightDark md:text-5xl">Fullstack Web Developer</h1>
+          <h2 className='text-6xl leading-[54px] text-dark md:text-9xl md:leading-none'>Quentin <br /> Gibson</h2>
         </div>
         <div className="flex flex-col">
           <div className='ml-16 border-l border-dark pl-4 font-serif'>
-            <p className='leading-6 text-lightDark mr-10 my-4 text-base'>Im a fullstack developer based in College Park, Ga and I enjoy playing with React. I love video games, basketball, and music.</p>
-            <div className="flex gap-3">
-              <Link to="">
+            <p className='leading-6 text-lightDark max-w-[300px] my-4 text-base md:text-2xl'>Im a fullstack developer based in College Park, Ga and I enjoy playing with React. I love video games, basketball, and music.</p>
+            <div className="flex gap-3 text-lightDark">
+              <Link to="https://github.com/QuentinGibson">
                 <GrGithub className='text-4xl' />
               </Link>
-              <Link to="">
+              <Link to="https://twitter.com/quent_made_it">
                 <GrTwitter className='text-4xl' />
               </Link>
-              <Link to="">
+              <Link to="https://www.youtube.com/channel/UCsX8Ahu9O9dmFyoV_fgoeaw">
                 <GrYoutube className='text-4xl' />
               </Link>
             </div>
-            <div className="flex flex-col my-8">
+            <div className="flex flex-col my-8 md:text-2xl">
               <p className='font-thin  text-lightDark'>Born In</p>
               <h3 className='font-bold '>College Park, Ga</h3>
             </div>
-            <div className="flex flex-col my-8">
+            <div className="flex flex-col my-8 md:text-2xl">
               <p className='font-thin text-lightDark'>Experience</p>
               <h3 className='font-bold '>10+ years</h3>
             </div>
-            <div className="flex flex-col my-8">
+            <div className="flex flex-col my-8 md:text-2xl">
               <p className='font-thin text-lightDark'>Birthday</p>
               <h3 className='font-bold '>November 29</h3>
             </div>
@@ -48,8 +48,8 @@ export default function IndexRoute() {
         </div>
       </section>
       <section className='py-8 bg-cream px-4'>
-        <h1 className='text-5xl text-dark mb-4'>About Me</h1>
-        <div className="grid grid-cols-2 gap-4 font-serif pb-4">
+        <h1 className='text-5xl text-dark mb-4 md:text-8xl md:mb-8'>About Me</h1>
+        <div className="grid grid-cols-2 gap-4 font-serif pb-4 md:grid-cols-4 md:pb-8">
           <div className="flex flex-col gap-1 items-center break-words">
             <HiUsers className='text-4xl text-[#ff8059]' />
             <p className="font-bold text-2xl text-dark">10</p>
@@ -82,11 +82,11 @@ export default function IndexRoute() {
             In sed dolor ut ligula malesuada sollicitudin. Morbi iaculis convallis arcu, nec maximus tellus sodales in. Curabitur blandit enim at nisl lobortis, non pretium enim hendrer.
           </p>
         </div>
-        <Link to="/contact" className='inline-block mt-8 px-8 py-3 font-bold font-serif border-2 border-[#ff8059] rounded-lg hover:bg-[#ff8059] hover:scale-105 transition-all duration-150'>
+        <Link to="/contact" prefetch="intent" className='inline-block mt-8 px-8 py-3 font-bold font-serif border-2 border-[#ff8059] rounded-lg hover:bg-[#ff8059] hover:scale-105 transition-all duration-150'>
           Contact Me
         </Link>
         <div className='mt-8'>
-          <img className="invert brightness-100" src="/img/signature.png" alt="" />
+          <img className="" src="/img/signature.svg" alt="" />
         </div>
       </section>
       {/* <Canvas>

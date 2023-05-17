@@ -49,7 +49,7 @@ function Body() {
       <body className="h-full bg-[#f2f1f7]">
         <Layout>
           {message ? (
-            <div className="flash">{message}</div>
+            <div className="absolute px-4 py-2 font-bold bg-cream border border-orange-700 flex justify-center"><p>{message}</p></div>
           ) : null}
           <Outlet />
         </Layout>
