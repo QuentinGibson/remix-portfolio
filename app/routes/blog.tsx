@@ -74,9 +74,7 @@ export default function BlogRoute() {
     <main>
       <h1 className="text-5xl text-dark bg-cream py-8 px-4">Blog</h1>
       <section className="bg-cream text-dark">
-        <p className="px-4 mb-8">
-          Suspendisse potenti. Sed egestas eros eu libero posuere ultrices. Nullam ut aliquet felis, sit amet imperdiet felis.
-        </p>
+        <p className="px-4 mb-8">Check out some of my writing! I will update weekly</p>
         <div className="grid">
           {posts.map((post) => (
             <Post key={post.id} blogPost={post} />

@@ -51,7 +51,7 @@ export default function SingleProjectRoute() {
         <Parallax
           bgImage={project.image}
           strength={100}
-          className="h-[300px] w-full md:h-[500px]"
+          className="h-[300px] w-full md:h-[500px] lg:h-[900px]"
         >
         </Parallax>
       </div>
