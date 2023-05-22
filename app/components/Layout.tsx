@@ -4,6 +4,7 @@ import { GrGithub, GrLinkedin, GrTwitter, GrYoutube } from 'react-icons/gr'
 import { HiMenuAlt4, HiOutlineSun, HiOutlineMoon, HiX } from 'react-icons/hi'
 import { Theme, useTheme } from "~/utils/theme-provider";
 import { useMediaQuery } from "usehooks-ts";
+import { useOptionalUser } from "~/utils";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export default function Layout({ children }: LayoutProps) {
   const isDark = theme === Theme.DARK;
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const user = useOptionalUser()
   const changeTheme = () => {
     setTheme(isDark ? Theme.LIGHT : Theme.DARK);
   }
@@ -78,6 +80,10 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <p className="font-thin">© 2023 Quentin Gibson. All Rights Resevered</p>
           <p className="font-thin">Developed by Quentin Gibson</p>
+          {!user &&
+            <Link className="hover:underline" to={"/login"}>Login</Link>
+          }
+          {user && user.role === "ADMIN" && <Link className="hover:underline" to="admin">Admin</Link>}
         </div>
       </footer>
     </>

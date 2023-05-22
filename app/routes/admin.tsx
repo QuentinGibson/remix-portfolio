@@ -15,14 +15,14 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 export default function ComponentName() {
   const user = useUser()
   return (
-    <main className="bg-cream">
-      <h1>Admin</h1>
+    <main className="bg-cream py-8 px-4">
+      <h1 className="text-5xl font-bold pb-8">Admin</h1>
       <ul>
-        <li><Link to="/admin/new_blog">Create Blog Post</Link></li>
-        <li><Link to="/admin/blogs">Edit Blog</Link></li>
-        <li><Link to="/admin/new_project">Create Project</Link></li>
-        <li><Link to="/admin/projects">Edit Projects</Link></li>
-        <li><Link to="/admin/contacts">View Contacts</Link></li>
+        <li><Link className="hover:underline" to="/admin/new_blog">Create Blog Post</Link></li>
+        <li><Link className="hover:underline" to="/admin/blogs">Edit Blog</Link></li>
+        <li><Link className="hover:underline" to="/admin/new_project">Create Project</Link></li>
+        <li><Link className="hover:underline" to="/admin/projects">Edit Projects</Link></li>
+        <li><Link className="hover:underline" to="/admin/contacts">View Contacts</Link></li>
       </ul>
     </main>
   );
