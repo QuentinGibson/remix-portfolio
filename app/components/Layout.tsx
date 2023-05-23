@@ -13,8 +13,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [theme, setTheme] = useTheme();
   const isDark = theme === Theme.DARK;
-  const isDesktop = useMediaQuery('(min-width: 768px)')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  let isDesktop = useMediaQuery('(min-width: 768px)')
+
   const user = useOptionalUser()
   const changeTheme = () => {
     setTheme(isDark ? Theme.LIGHT : Theme.DARK);
@@ -22,6 +23,7 @@ export default function Layout({ children }: LayoutProps) {
   const closeMenu = () => {
     setIsMenuOpen(false)
   }
+
   return (
     <>
       <header className=" flex flex-col justify-between items-center py-4 bg-cream border-b border-[#8c805e] px-4">

@@ -1,36 +1,11 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { getPosts } from "~/models/blog.server";
 import { blogPost } from "~/models/blog.server";
 
 
 export const loader = async ({ request, params }: LoaderArgs) => {
-  const posts: blogPost[] = [
-    {
-      id: "1",
-      slug: "lorem-ipsum-dolor-sit-amet",
-      category: "Remix Run",
-      title: "Lorem ipsum dolor sit amet",
-      date: new Date(2022, 10, 20),
-      content: "Lorem ipsum dolor sit amet lah lah lah more content. Try to get 200 chars in this mofo content part here. Bear with me as I hate coming up with random stuff for this. Well I dont hate it but you might. 200 reached though so fuck it. Lets go and type things down.",
-      image: `https://picsum.photos/id/237/700/700`
-    }, {
-      id: "2",
-      slug: "another-one",
-      category: "Remix Run",
-      title: "Ippy random title",
-      date: new Date(2022, 10, 20),
-      content: "Aging is a natural process, but regular exercise can help slow down its effects. Studies have shown that those who engage in consistent physical activity tend to have a higher life expectancy and a reduced risk of age-related diseases. Regular exercise helps maintain muscle mass, bone density, and overall physical function as you age. It also improves cardiovascular health, reduces the risk of cognitive decline, and enhances mobility and balance. By incorporating exercise into your lifestyle, you can enjoy a higher quality of life and maintain independence as you grow older.",
-      image: `https://picsum.photos/id/219/700/700`
-    }, {
-      id: "3",
-      slug: "howdy-partner",
-      category: "Fullstack",
-      title: "Howdy Partner",
-      date: new Date(2022, 10, 20),
-      content: "Aging is a natural process, but regular exercise can help slow down its effects. Studies have shown that those who engage in consistent physical activity tend to have a higher life expectancy and a reduced risk of age-related diseases. Regular exercise helps maintain muscle mass, bone density, and overall physical function as you age. It also improves cardiovascular health, reduces the risk of cognitive decline, and enhances mobility and balance. By incorporating exercise into your lifestyle, you can enjoy a higher quality of life and maintain independence as you grow older.",
-      image: `https://picsum.photos/id/209/700/700`
-    }
-  ]
+  const posts: blogPost[] = await getPosts()
   return json({ posts });
 };
 

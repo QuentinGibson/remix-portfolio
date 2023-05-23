@@ -1,24 +1,12 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Project } from "~/models/project.server";
+import { getProjectBySlug } from "~/models/project.server";
 import { Parallax } from "react-parallax";
 
 export const loader = async ({ request, params }: LoaderArgs) => {
-  const project: Project = {
-    id: "1",
-    title: "Remix Run",
-    date: new Date('2022-10-20'),
-    type: "Web Development",
-    content: "Remix Run is an all-in-one web development solution that lets you build production-ready websites and web apps with a single, integrated suite of tools.",
-    category: "Remix Run",
-    image: `https://picsum.photos/id/237/1000/1000`,
-    link: "https://remix.run",
-    slug: "remix-run",
-    gallery: [
-      "https://picsum.photos/id/239/1000/1000",
-      "https://picsum.photos/id/240/1000/1000",
-    ]
-  }
+  const slug = params.slug
+  if (!slug) throw new Error("No slug found. Please enter a slug!")
+  const project = await getProjectBySlug(slug)
   return json({ project });
 };
 
@@ -35,10 +23,6 @@ export default function SingleProjectRoute() {
             <div className="flex flex-col">
               <p className="text-lightDark font-thin">Year</p>
               <span className="font-bold text-dark leading-6">{displayYear}</span>
-            </div>
-            <div className="flex flex-col">
-              <p className="text-lightDark font-thin">Technology</p>
-              <span className="font-bold text-dark leading-6">{project.category}</span>
             </div>
           </div>
           <div className="flex flex-col">
@@ -64,9 +48,9 @@ export default function SingleProjectRoute() {
           </p>
         </div>
         <div className="grid gap-8 py-8">
-          {project.gallery.map((image, index) => (
+          {project.photos.map((photo, index) => (
             <div key={index}>
-              <img src={image} alt="" />
+              <img src={photo.image} alt="" />
             </div>
           ))}
         </div>

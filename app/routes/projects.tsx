@@ -1,15 +1,20 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { getProjects } from "~/models/project.server";
 
 interface Project {
   id: string;
   title: string;
-  description: string;
   type: string;
-  category: string;
   image: string;
+  content: string
   link: string;
   slug: string;
+}
+
+interface Photo {
+  id: string
+  image: string
 }
 
 function Work({ project }: { project: Project }) {
@@ -24,7 +29,6 @@ function Work({ project }: { project: Project }) {
             <h2 className="text-4xl">{project.title}</h2>
             <div className="font-serif font-thin text-lightDark flex flex-col mt-4">
               <p>{project.type}</p>
-              <p>{project.category}</p>
             </div>
           </div>
         </div>
@@ -35,38 +39,7 @@ function Work({ project }: { project: Project }) {
 
 
 export const loader = async ({ request, params }: LoaderArgs) => {
-  const projects: Project[] = [
-    {
-      id: "1",
-      title: "Remix Run",
-      description: "Remix Run is an all-in-one web development solution that lets you build production-ready websites and web apps with a single, integrated suite of tools.",
-      type: "Web Development",
-      category: "Remix Run",
-      image: `https://picsum.photos/id/237/700/700`,
-      link: "https://remix.run",
-      slug: "remix-run"
-    },
-    {
-      id: "2",
-      title: "Remix Run",
-      description: "Remix Run is an all-in-one web development solution that lets you build production-ready websites and web apps with a single, integrated suite of tools.",
-      type: "Web Development",
-      category: "Remix Run",
-      image: `https://picsum.photos/id/137/700/700`,
-      link: "https://remix.run",
-      slug: "remix-run"
-    },
-    {
-      id: "3",
-      title: "Remix Run",
-      description: "Remix Run is an all-in-one web development solution that lets you build production-ready websites and web apps with a single, integrated suite of tools.",
-      type: "Web Development",
-      category: "Remix Run",
-      image: `https://picsum.photos/id/211/700/700`,
-      link: "https://remix.run",
-      slug: "remix-run"
-    }
-  ]
+  const projects: Project[] = await getProjects()
   return json({ projects });
 };
 

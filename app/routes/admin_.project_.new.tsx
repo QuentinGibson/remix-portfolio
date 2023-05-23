@@ -1,21 +1,21 @@
-import { Form, Link } from "@remix-run/react";
-import { BsArrowRight } from 'react-icons/bs'
-import draftCSS from "quill/dist/quill.snow.css";
+import { Form } from "@remix-run/react";
+import { useState, useEffect } from "react";
 import { useQuill } from "react-quilljs";
-import { useEffect, useState } from "react";
-import { DataFunctionArgs, unstable_composeUploadHandlers, unstable_createFileUploadHandler, unstable_createMemoryUploadHandler, unstable_parseMultipartFormData, redirect, LoaderArgs } from "@remix-run/node";
-import invariant from "tiny-invariant";
-import { getSession, requireUser, sessionStorage } from "~/session.server";
-import { createBlog } from "~/models/blog.server";
 
-export const links = () => [{ rel: "stylesheet", href: draftCSS }];
+import draftCSS from "quill/dist/quill.snow.css";
+import { getSession, requireUser, sessionStorage } from "~/session.server";
+import { DataFunctionArgs, LoaderArgs, redirect, unstable_composeUploadHandlers, unstable_createFileUploadHandler, unstable_createMemoryUploadHandler, unstable_parseMultipartFormData } from "@remix-run/node";
+import invariant from "tiny-invariant";
+import { createProject } from "~/models/project.server";
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   const user = requireUser(request)
   return {}
 };
 
-export default function NewBlogRoute() {
+export const links = () => [{ rel: "stylesheet", href: draftCSS }];
+
+export default function NewProjectRoute() {
   const { quill, quillRef } = useQuill();
   const [content, setContent] = useState<string>("")
 
@@ -24,15 +24,10 @@ export default function NewBlogRoute() {
       setContent(quill?.root.innerHTML)
     })
   }, [quill])
-
   return (
-    <main className="bg-cream py-8 px-4">
-      <Link to="admin" className="flex gap-1 items-center">
-        <p className="py-4 text-lg">Back </p>
-        <BsArrowRight />
-      </Link>
-      <h1 className="text-5xl font-bold">New Blog</h1>
-      <Form method="POST" className="mt-8" encType="multipart/form-data">
+    <main className="bg-cream px-4 py-8">
+      <h1 className="font-bold text-5xl mb-8">New Project</h1>
+      <Form method="POST" encType="multipart/form-data">
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
             <label className="text-lg" htmlFor="title">Title</label>
@@ -41,18 +36,25 @@ export default function NewBlogRoute() {
           <div className="flex gap-2">
             <label className="text-lg" htmlFor="slug">Slug</label>
             <input required type="text" name="slug" id="slug" />
+          </div><div className="flex gap-2">
+            <label className="text-lg" htmlFor="link">Link</label>
+            <input required type="text" name="link" id="link" />
           </div>
           <div className="flex gap-2">
             <label className="text-lg" htmlFor="date">Date</label>
             <input required type="date" name="date" id="date" />
           </div>
           <div className="flex gap-2">
-            <label className="text-lg" htmlFor="category">Category</label>
-            <input required type="text" name="category" id="category" />
+            <label className="text-lg" htmlFor="type">Type</label>
+            <input required type="text" name="type" id="type" />
           </div>
           <div className="flex gap-2">
             <label className="text-lg" htmlFor="image">Image</label>
             <input required type="file" name="image" id="image" />
+          </div>
+          <div className="flex gap-2">
+            <label className="text-lg" htmlFor="photos">Photos</label>
+            <input required type="file" name="photos" id="photos" multiple />
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="content" className="text-lg">Content</label>
@@ -78,7 +80,7 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   const uploadHandler = unstable_composeUploadHandlers(
     unstable_createFileUploadHandler({
       maxPartSize: 5_000_000,
-      directory: "./public/uploads/blog",
+      directory: "./public/uploads/project",
       avoidFileConflicts: true,
       file: ({ filename }) => filename,
     }),
@@ -91,15 +93,18 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   );
 
   const image = formData.get("image") as any
+  const photos = formData.getAll("photos") as any[]
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
   const date = formData.get("date") as string;
   const dateObj = new Date(date)
   const content = formData.get("content") as string;
-  const publicIndex = image.filepath.indexOf("uploads")
-  const category = formData.get("category") as string;
+  const publicIndex = image.filepath.indexOf("uploads") - 1
+  const link = formData.get("link") as string;
+  const type = formData.get("type") as string;
 
   const url = image.filepath.slice(publicIndex)
+  const galleryList = photos.map(photo => photo.filepath.slice(publicIndex))
 
   invariant(image, "Image is required")
   invariant(title, "Title is required")
@@ -116,16 +121,17 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   invariant(title.length < 100, "Title must be less than 100 characters")
   invariant(content.length > 100, "Content must be more than 100 characters")
 
-  await createBlog({
+  await createProject({
     image: url,
     title,
     slug,
     content,
     date: dateObj,
-    category,
-
+    type,
+    link,
+    photos: galleryList
   })
 
   session.flash("globalMessage", "Post created sucessfully!")
-  return redirect("/blog", { headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
+  return redirect("/projects", { headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
 };

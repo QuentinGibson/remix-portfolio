@@ -1,4 +1,4 @@
-import { LoaderArgs } from "@remix-run/node";
+import { DataFunctionArgs, LoaderArgs } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useQuill } from "react-quilljs";
@@ -25,6 +25,11 @@ export default function AdminEditPost() {
     quill?.on('text-change', () => {
       setContent(quill?.root.innerHTML)
     })
+  }, [quill])
+
+  useEffect(() => {
+    quill?.clipboard.dangerouslyPasteHTML(0, post.content);
+
   }, [quill])
 
   return (
@@ -68,4 +73,8 @@ export default function AdminEditPost() {
       </Form>
     </main>
   );
+};
+
+export const action = async ({ request, params }: DataFunctionArgs) => {
+
 };
