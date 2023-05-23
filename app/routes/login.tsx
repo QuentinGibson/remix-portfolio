@@ -136,7 +136,7 @@ export default function LoginPage() {
           <input type="hidden" name="redirectTo" value={redirectTo} />
           <button
             type="submit"
-            className="w-full rounded bg-[#998c4c] px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
+            className="w-full rounded bg-[#998c4c] px-4 py-2 text-white hover:bg-[#d8c66c] focus:bg-blue-400"
           >
             Log in
           </button>

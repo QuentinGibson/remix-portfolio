@@ -9,7 +9,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
   useLoaderData,
+  useRouteError,
 } from "@remix-run/react";
 
 import { getUser, getSession, sessionStorage } from "~/session.server";
@@ -66,5 +68,35 @@ export default function App() {
     <ThemeProvider>
       <Body />
     </ThemeProvider>
+  )
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  if (isRouteErrorResponse(error)) {
+    return (
+      <main>
+        <h1>We're sorry, theres a huge error</h1>
+        <div>
+          <p>Status: {error.status}</p>
+          <p>{error.statusText}</p>
+        </div>
+        <div>
+          <p>{error.data.message}</p>
+        </div>
+
+      </main>
+    )
+  }
+
+  let errorMessage = "Unknown Error"
+  return (
+    <main>
+      <h1>We're sorry, theres a huge error</h1>
+      <p>{errorMessage}</p>
+      {error.message &&
+        <p>{error.message}</p>
+      }
+    </main>
   )
 }
