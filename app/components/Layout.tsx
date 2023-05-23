@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import { ReactNode, useEffect, useState } from "react";
 import { GrGithub, GrLinkedin, GrTwitter, GrYoutube } from 'react-icons/gr'
 import { HiMenuAlt4, HiOutlineSun, HiOutlineMoon, HiX } from 'react-icons/hi'
@@ -82,10 +82,13 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <p className="font-thin">© 2023 Quentin Gibson. All Rights Resevered</p>
           <p className="font-thin">Developed by Quentin Gibson</p>
-          {!user &&
-            <Link className="hover:underline" to={"/login"}>Login</Link>
-          }
-          {user && user.role === "ADMIN" && <Link className="hover:underline" to="admin">Admin</Link>}
+          <div className="flex gap-2">
+            {!user &&
+              <Link className="hover:underline" to={"/login"}>Login</Link>
+            }
+            {user && user.role === "ADMIN" && <Link className="hover:underline" to="admin">Admin</Link>}
+            {user && <Form method="POST" action="/logout"><button className="hover:underline" type="submit">Logout</button></Form>}
+          </div>
         </div>
       </footer>
     </>

@@ -2,6 +2,7 @@ import { DataFunctionArgs, json, redirect } from "@remix-run/node";
 import { Link, useFetcher } from "@remix-run/react";
 import { HiAtSymbol } from 'react-icons/hi'
 import invariant from "tiny-invariant";
+import { createContact } from "~/models/contact.server";
 import { getSession, sessionStorage } from "~/session.server";
 
 export default function ContactRoute() {
@@ -111,6 +112,8 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   } catch (error: any) {
     return json({ error: { email: "Email is too long." } }, { status: 400, headers: { "Set-Cookie": await sessionStorage.commitSession(session) } })
   }
+
+  await createContact({ message, name, email })
 
   session.flash("globalMessage", "Message sent!");
 
