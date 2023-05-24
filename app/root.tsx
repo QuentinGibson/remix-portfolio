@@ -96,7 +96,7 @@ export function ErrorBoundary() {
       <p>{errorMessage}</p>
       {/*@ts-ignore*/}
       {error.message &&
-      {/*@ts-ignore*/}
+      /*@ts-ignore*/
         <p>{error.message}</p>
       }
     </main>
