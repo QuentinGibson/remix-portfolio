@@ -84,7 +84,6 @@ export function ErrorBoundary() {
         <div>
           <p>{error.data.message}</p>
         </div>
-
       </main>
     )
   }
