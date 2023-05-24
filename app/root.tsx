@@ -94,7 +94,9 @@ export function ErrorBoundary() {
     <main>
       <h1>We're sorry, theres a huge error</h1>
       <p>{errorMessage}</p>
+      {/*@ts-ignore*/}
       {error.message &&
+      {/*@ts-ignore*/}
         <p>{error.message}</p>
       }
     </main>
